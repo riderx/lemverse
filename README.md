@@ -1,6 +1,17 @@
-<img alt="lemverse" src="./app/public/lemverse-light.png">
+<img alt="lemverse" src="./app/public/lemverse-light.png" style="max-width: 70%; display: block; margin: 30px auto;">  
 
----
+
+# Table of contents
+- [What is `lemverse`?](#what-is--lemverse--)
+- [What can I do in lemverse?](#what-can-i-do-in-lemverse-)
+- [Getting started!](#getting-started-)
+- [Deploy in production!](#deploy-in-production-)
+- [Useful commands/tricks](#useful-commands-tricks)
+- [Assets](#assets)
+- [License](#license)
+- [Credits](#credits)
+- [Screenshots](#screenshots)
+<br/><br/>
 
 # What is `lemverse`?
 
@@ -15,6 +26,7 @@ If you have answer `yes` to one of those questions, then `lemverse` is for you!
 You can either launch it locally, on a server or join us at [lemverse.com](https://lemverse.com).
 
 ℹ️ Can't wait to install lemverse? You can go directly to the [Getting started](#getting-started) section
+<br/><br/>
 
 # What can I do in lemverse?
 
@@ -272,18 +284,27 @@ Please note, that as stated in section `Deploy in production`, there is an addit
     "defaultLevelId": "lvl_iLOVEaLOTlemverse", // Default level Id created at first run.
 
     "peer": {
-      "server": {
+      "path": "/peer",
+      "client": {
         "url": "peer.example.com",
         "port": 443,
-        "path": "/peer",
         "secret": "******", // Required for turn server support
         "credentialDuration": 86400,
         "config": {
           "iceServers": [{
             "urls": "stun:stun.l.google.com:19302"
           }],
-          "iceTransportPolicy" : "all"
+          "iceTransportPolicy" : "all",
+          "sdpSemantics": "unified-plan"
         }
+      },
+      // Details about the configuration bellow is available here: https://github.com/peers/peerjs-server#config--cli-options
+      "server": {
+        "port": 7010,
+        "key": "peerjs",
+        "alive_timeout": 60000,
+        "expire_timeout": 5000,
+        "allow_discovery": false,
       }
     }
   }
@@ -313,6 +334,8 @@ After that, simply launch `run-lt`.
 Modify `createMyPeer` in `peer.js` to change the host to `lemverse-peer-USER-DOMAIN` while `USER`=`whoami` and `DOMAIN`=`LT_DOMAIN` env variable.
 
 Access to your local instance at: `https://lemverse-USER-DOMAIN`.
+
+> :warning: Don't forget to change the port to 443 for peers when using local tunnel
 
 ## First login
 
@@ -478,6 +501,11 @@ For example, to add a beta flag to yourself execute this command in your browser
 ```js
 remote("Meteor.users.update({ _id: Meteor.userId() }, { $addToSet: { 'beta': { $each: ['myAwesomeFeature'] } } });")
 ```
+
+
+# Assets
+
+We use paid assets from [limezu](https://limezu.itch.io/) on [itch.io](https://limezu.itch.io/moderninteriors) in the *version 35*. Please keep in mind than lemverse doesn't support the new character format for the moment.
 
 # License
 
